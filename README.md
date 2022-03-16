@@ -1,5 +1,7 @@
 A comparison tool to quantify all changes made in Bitcoin over the past few decades.
 
+Original repository: https://github.com/srsran/srsRAN
+
 The script considers code files as those ending in [.cpp, .py, .c, .h, .sh, .sol, .go, .c, .js, .java].
 
 ## Results
