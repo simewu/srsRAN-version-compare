@@ -2,10 +2,10 @@ A comparison tool to quantify all changes made in Bitcoin over the past few deca
 
 Original repository: https://github.com/srsran/srsRAN
 
-The script considers code files as those ending in [.cpp, .py, .c, .h, .sh, .go, .c, .js, .java].
+The script considers code files as those ending in [.cpp, .py, .c, .cc, .h, .sh, .go, .c, .js, .java].
 
 ## Results
-| srsRAN Version                | Num all files | Size all files (B) | Num code files (cpp, py, c, cc, h, sh, go, c, js, java) | Size code files (B) | \* | All line additions | All line removals | All files changed | Ratio all files changed | All changed bytes | Ratio all bytes changed | \* | Code line additions | Code line removals | Code files changed | Ratio code files changed | Code changed bytes | Ratio code bytes changed |
+| srsRAN Version                | Num all files | Size all files (B) | Num code files | Size code files (B) | \* | All line additions | All line removals | All files changed | Ratio all files changed | All changed bytes | Ratio all bytes changed | \* | Code line additions | Code line removals | Code files changed | Ratio code files changed | Code changed bytes | Ratio code bytes changed |
 | ----------------------------- | ------------- | ------------------ | ------------------------------------------------------- | ------------------- | -- | ------------------ | ----------------- | ----------------- | ----------------------- | ----------------- | ----------------------- | -- | ------------------- | ------------------ | ------------------ | ------------------------ | ------------------ | ------------------------ |
 | srsRAN-release\_002\_000\_000 | 549           | 7339930            | 482                                                     | 6876270             | \* | N/A                | N/A               | N/A               | N/A                     | N/A               | N/A                     | \* | N/A                 | N/A                | N/A                | N/A                      | N/A                | N/A                      |
 | srsRAN-release\_17\_09        | 571           | 7956235            | 503                                                     | 7299272             | \* | 21383              | 8593              | 318               | 0.556918                | 3605187           | 0.453127                | \* | 21108               | 7094               | 292                | 0.580517                 | 3348541            | 0.45875                  |
