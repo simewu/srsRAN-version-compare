@@ -82,7 +82,7 @@ void updateHashAtIndex(merkle::Tree &tree, int index, std::string hash_string) {
 
 
 int main() {
-	int numSamples = 100;
+	int numSamples = 1000;
 
 	std::string regexToIncludeStr = ".*(\\.cpp|\\.c|\\.h|\\.cc|\\.py|\\.sh|\\.go|\\.js|\\.java)";
 	std::string regexToIgnoreStr = "";
