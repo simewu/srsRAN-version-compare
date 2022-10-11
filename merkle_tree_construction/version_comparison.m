@@ -5,7 +5,7 @@ data_str = readtable('logDirectoryOutput.csv');
 % plotNum = 1 = Percent code files / bytes changed
 % plotNum = 2 = Tree construction
 % plotNum = 3 = Gen/Verify
-plotNum = 1
+plotNum = 3
 
 
 fontSize = 28;
@@ -19,8 +19,15 @@ if plotNum == 1
     y_B = data(2:end, 19);
     
     hold on;
-    bar(y_B, 'FaceColor', '#FFF');
-    bar(y, 'FaceColor', '#444');
+    for i=1:length(y)
+        if y_B(i) < y(i)
+            bar(i, y(i), 'FaceColor', '#444');
+            bar(i, y_B(i), 'FaceColor', '#FFF');
+        else
+            bar(i, y_B(i), 'FaceColor', '#FFF');
+            bar(i, y(i), 'FaceColor', '#444');
+        end
+    end
     xticks(1:length(x))
     xticklabels(x)
     
