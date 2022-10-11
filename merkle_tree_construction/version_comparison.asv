@@ -14,7 +14,7 @@ f = figure;
 if plotNum == 1
     % "rows = 2:end" is because this is a difference plot,
     % so the first version is "N/A"
-    x = strcat(table2array(data_str(1:end - 1, 1)) , " – " , table2array(data_str(2:end, 1)))
+    x = strcat(table2array(data_str(1:end - 1, 1)) , " - " , table2array(data_str(2:end, 1)))
     y = data(2:end, 17);
     y_B = data(2:end, 19);
     
@@ -36,7 +36,7 @@ if plotNum == 1
     xtickangle(60);
     
     %axis square;
-    ylim([0, 1.15])
+    ylim([0, 1.2])
     set(gca, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XScale', 'log', 'XTick',x_avg, 'XTickLabel', x_avg, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XTick',x_avg, 'XTickLabel', x_avg_real, 'YGrid', 'on', 'YMinorGrid', 'on');
