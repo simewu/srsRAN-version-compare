@@ -137,10 +137,14 @@ def row_count(filename):
 	with open(filename) as in_file:
 		return sum(1 for _ in in_file)
 
-# Input format: ../bitcoin-X/src
+# Input format: ../srsRAN-release_X
 def processPathToVersion(path):
-	match = re.match(r'.*bitcoin-([^\/]+)', path)
-	return 'v' + match.group(1)
+	return path
+	print(path)
+	match = re.match(r'.*srsRAN-release_([^\/]+)', path)
+	version = match.group(1)
+	if version == '002_000_000': version = '2_0'
+	return 'v' + re.sub('(?=[0-9])', '.', version).replace('_', ' ')
 
 inputFileName = selectFile('Algorithm_benchmark_[0-9]+.csv')
 outputFilePath = 'Algorithm_benchmark_CI_output.csv'

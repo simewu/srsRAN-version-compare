@@ -5,10 +5,10 @@ data_str = readtable('logDirectoryOutput.csv');
 % plotNum = 1 = Percent code files / bytes changed
 % plotNum = 2 = Tree construction
 % plotNum = 3 = Gen/Verify
-plotNum = 3
+plotNum = 1
 
 
-fontSize = 24;
+fontSize = 28;
 f = figure;
 
 if plotNum == 1
@@ -29,7 +29,7 @@ if plotNum == 1
     xtickangle(60);
     
     %axis square;
-    ylim([0, 1])
+    ylim([0, 1.1])
     set(gca, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XScale', 'log', 'XTick',x_avg, 'XTickLabel', x_avg, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XTick',x_avg, 'XTickLabel', x_avg_real, 'YGrid', 'on', 'YMinorGrid', 'on');
@@ -76,7 +76,7 @@ elseif plotNum == 2
         plotConfidenceInterval(i, tree_construction(i), tree_construction_ci(i))
     end
 
-    ylim([70, 190])
+    ylim([45, 250])
     
     %set(gca, 'YScale', 'log');
     %bar(y, 'FaceColor', '#444');
@@ -129,7 +129,7 @@ elseif plotNum == 3
         plotConfidenceInterval(i, verify_proof_y(i), verify_proof_y_ci(i))
     end
     %ylim([70, 190])
-    ylim([0.02, 0.15])
+    ylim([0, 0.23])
 
     xticks(x)
     xticklabels(x_str)
@@ -145,7 +145,7 @@ elseif plotNum == 3
     %set(gca, 'XTick',x_avg, 'XTickLabel', x_avg_real, 'YGrid', 'on', 'YMinorGrid', 'on');
     set(gca,'FontSize', fontSize);
     
-    legend('Proof Generation', 'Proof Verification', 'Location', 'NorthWest', 'NumColumns', 2)
+    legend('Proof Generation', 'Proof Verification', 'Location', 'NorthWest', 'NumColumns', 1)
     % ax = gca
     % ax.XAxis.FontSize = fontSize;
     % ax.YAxis.FontSize = fontSize;
@@ -153,7 +153,7 @@ elseif plotNum == 3
 
 end
 
-f.Position = [100 100 1500 500];
+f.Position = [100 100 1500 800];
 
 function plotConfidenceInterval(i, y, yci)
     ci_color = 'black'
