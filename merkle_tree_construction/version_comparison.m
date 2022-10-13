@@ -2,11 +2,11 @@ data = readmatrix('logDirectoryOutput.csv');
 data2 = readmatrix('Algorithm_benchmark_CI_output.csv')
 data_str = readtable('logDirectoryOutput.csv');
 
-% plotNum = 0 = Percent code files / bytes changed (CDF)
+% plotNum = 0 = File distribution
 % plotNum = 1 = Percent code files / bytes changed
 % plotNum = 2 = Proof Generation
 % plotNum = 3 = Proof Verification
-plotNum = 2
+plotNum = 0
 
 
 fontSize = 28;
@@ -16,29 +16,39 @@ f = figure;
 xoffset = 0.3
 
 if plotNum == 0
-    %x = strcat(table2array(data_str(1:end - 1, 1)) , " – " , table2array(data_str(2:end, 1)))
-    y = data(2:end, 16);
-    y_B = data(2:end, 18);
+    x_str = table2array(data_str(1:end, 1))
+    x = 1:length(x_str)
+    y = data2(1:end, 10);
+    extensions = table2array(data_str(1:end, 21))
     
     hold on;
-    cdfplot(y)
-    cdfplot(y_B)
+    %otherBar = bar(x + xoffset, y, 'FaceColor', '#FFF')
+
+    
+    for i=1:length(x)
+        plotExtensionHistogram(i + xoffset, y(i), extensions(i), {"c" "cc" "cpp" "h", "sh"}, {"#292929" "#5C5C5C" "#A1A1A1" "#D6D6D6", "#EEEEEE", "#FFF"})
+    end
+
     %xticks(1:length(x))
     %xticklabels(x)
+
+    xticks(x)
+    xticklabels(x_str)
     
-    xlabel('Code files changed')
-    ylabel('Difference (%)')
+    xlabel('srsRAN Version')
+    ylabel('Number of Files')
     xtickangle(60);
     
     %axis square;
-    ylim([0, 1])
+    xlim([1 - 0.6 + xoffset, length(y) + 0.6 + xoffset])
+    ylim([0, 1900])
     set(gca, 'YGrid', 'on', 'YMinorGrid', 'on');
-    set(gca, 'XScale', 'log');
+    %set(gca, 'XScale', 'log');
     %set(gca, 'XScale', 'log', 'XTick',x_avg, 'XTickLabel', x_avg, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XTick',x_avg, 'XTickLabel', x_avg_real, 'YGrid', 'on', 'YMinorGrid', 'on');
     set(gca,'FontSize', fontSize);
     
-    legend('Bytes of code', 'Number of files', 'Location', 'NorthWest', 'NumColumns', 2)
+    %legend('Bytes of code', 'Number of files', 'Location', 'NorthWest', 'NumColumns', 2)
     % ax = gca
     % ax.XAxis.FontSize = fontSize;
     % ax.YAxis.FontSize = fontSize;
@@ -199,7 +209,11 @@ elseif plotNum == 3
 
 end
 
-f.Position = [100 100 1500 800];
+if plotNum == 1
+    f.Position = [100 100 1500 800 + 170];
+else
+    f.Position = [100 100 1500 800];
+end
 
 function plotConfidenceInterval(i, y, yci)
     ci_color = 'black'
@@ -212,4 +226,47 @@ function plotConfidenceInterval(i, y, yci)
     
     % Add a dot in the center
     % plot(x, y, '.', 'Color', ci_color, 'MarkerSize', line_thickness*10, 'HandleVisibility', 'off')
+end
+
+function plotExtensionHistogram(x, y, extensionString, ordering, colors)
+    extensionStructStr = strcat('{', regexprep(extensionString, '\.?([^ ]*) \(([0-9]+)\)', '"$1":$2'), '}')
+    disp(extensionStructStr{1})
+    extensionStruct = jsondecode(extensionStructStr{1})
+
+    bars = []
+    totalFiles = 0
+    keys = fieldnames(extensionStruct)
+    for i=1:length(keys)
+        num = extensionStruct.(keys{i})
+        totalFiles = totalFiles + num
+    end
+    otherBar = bar(x, totalFiles, 'FaceColor', '#FFF')
+
+    sum = 0
+    for i=1:length(ordering)
+        e = ordering{i}
+        extensionValue = 0
+        if any(strcmp(fieldnames(extensionStruct), e))
+            extensionValue = extensionStruct.(e)
+        end
+        sum = sum + extensionValue
+    end
+    for i=1:length(ordering)
+        e = ordering{i}
+        extensionValue = 0
+        if any(strcmp(fieldnames(extensionStruct), e))
+            extensionValue = extensionStruct.(e)
+        end
+        b = bar(x, sum, 'FaceColor', colors{i})
+        bars = [bars b]
+        sum = sum - extensionValue
+        ordering{i} = strcat('.', ordering{i})
+    end
+
+    text(x, y + 10, int2str(y), 'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline', 'FontSize', 14)
+    text(x, totalFiles + 10, int2str(totalFiles), 'HorizontalAlignment', 'center', 'VerticalAlignment', 'baseline', 'FontSize', 14)
+
+    bars = [bars otherBar]
+    ordering = [ordering "Other files"]
+    legend(bars, ordering, 'Location', 'NorthWest', 'NumColumns', 2)
 end
