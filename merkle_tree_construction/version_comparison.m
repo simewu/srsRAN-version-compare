@@ -6,7 +6,7 @@ data_str = readtable('logDirectoryOutput.csv');
 % plotNum = 1 = Percent code files / bytes changed
 % plotNum = 2 = Proof Generation
 % plotNum = 3 = Proof Verification
-plotNum = 0
+plotNum = 1
 
 
 fontSize = 28;
@@ -57,8 +57,8 @@ elseif plotNum == 1
     % "rows = 2:end" is because this is a difference plot,
     % so the first version is "N/A"
     x = strcat(table2array(data_str(1:end - 1, 1)) , " – " , table2array(data_str(2:end, 1)))
-    y = data(2:end, 17);
-    y_B = data(2:end, 19);
+    y = data(2:end, 17) * 100;
+    y_B = data(2:end, 19) * 100;
     
     hold on;
     %bar([y, y_B], 'FaceColor', '#444');
@@ -81,7 +81,7 @@ elseif plotNum == 1
     
     %axis square;
     xlim([1 - 0.6 + xoffset, length(y) + 0.6 + xoffset])
-    ylim([0, 1.15])
+    ylim([0, 110])
     set(gca, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XScale', 'log', 'XTick',x_avg, 'XTickLabel', x_avg, 'YGrid', 'on', 'YMinorGrid', 'on');
     %set(gca, 'XTick',x_avg, 'XTickLabel', x_avg_real, 'YGrid', 'on', 'YMinorGrid', 'on');
