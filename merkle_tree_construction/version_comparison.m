@@ -6,7 +6,7 @@ data_str = readtable('logDirectoryOutput.csv');
 % plotNum = 1 = Percent code files / bytes changed
 % plotNum = 2 = Proof Generation
 % plotNum = 3 = Proof Verification
-plotNum = 0
+plotNum = 1
 
 
 fontSize = 28;
