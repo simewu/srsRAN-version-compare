@@ -127,6 +127,9 @@ int main() {
 	directories.push_back("srsRAN-release_21_10");
 	directories.push_back("srsRAN-release_22_04");
 	directories.push_back("srsRAN-release_22_04_1");
+	directories.push_back("srsRAN-release_22_10");
+	directories.push_back("srsRAN-release_23_04");
+	directories.push_back("srsRAN-release_23_04_1");
 
 	for(int d = 0; d < directories.size(); d++) {
 		std::string directory = "../" + directories.at(d);
